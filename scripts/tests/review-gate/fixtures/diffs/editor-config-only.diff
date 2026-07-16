@@ -1,0 +1,11 @@
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+index 5050505..6060606 100644
+--- a/.vscode/settings.json
++++ b/.vscode/settings.json
+@@ -1,4 +1,5 @@
+ {
+   "editor.tabSize": 2,
+-  "editor.fontSize": 13
++  "editor.fontSize": 13,
++  "editor.rulers": [80]
+ }

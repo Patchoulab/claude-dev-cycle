@@ -1,0 +1,16 @@
+{
+  "planning": {
+    "roadmapFile": "ROADMAP.md",
+    "plansDir": "plans",
+    "bundlesDir": "bundles",
+    "projectRoots": ["<absolute path to a projects root>"],
+    "memoryDirs": ["<absolute path to a memory dir>"],
+    "clusters": [
+      { "name": "example-cluster", "paths": ["<absolute path to a cluster root>"] }
+    ],
+    "excludeDirs": ["node_modules", ".git", ".venv", "dist", ".claude-worktrees"],
+    "executor": "current-opus",
+    "maxSurveyAgents": 6,
+    "staleClaimDays": 7
+  }
+}

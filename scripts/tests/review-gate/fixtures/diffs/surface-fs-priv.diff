@@ -1,0 +1,8 @@
+diff --git a/scripts/deploy.sh b/scripts/deploy.sh
+index 4d4d4d4..5e5e5e5 100644
+--- a/scripts/deploy.sh
++++ b/scripts/deploy.sh
+@@ -6,4 +6,5 @@ deploy() {
+     echo "deploying"
++    sudo chmod 777 /tmp/release
+ }

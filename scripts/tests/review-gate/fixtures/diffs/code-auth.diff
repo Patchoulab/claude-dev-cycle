@@ -1,0 +1,13 @@
+diff --git a/api/app.py b/api/app.py
+index aaaaaaa..bbbbbbb 100644
+--- a/api/app.py
++++ b/api/app.py
+@@ -40,7 +40,10 @@ def handle_login(request):
+     user = authenticate(request.username, request.password)
+     if not user:
+         return error_response(401)
+-    return issue_session(user)
++    token = generate_auth_token(user)
++    response = success_response(user)
++    response.set_cookie("session_token", token)
++    return response

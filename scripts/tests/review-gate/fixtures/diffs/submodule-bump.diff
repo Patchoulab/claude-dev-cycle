@@ -1,0 +1,7 @@
+diff --git a/vendor/submod b/vendor/submod
+index 2d36850..2943bdf 160000
+--- a/vendor/submod
++++ b/vendor/submod
+@@ -1 +1 @@
+-Subproject commit 2d3685057793ae3ca083779bef52818fc03a5af
++Subproject commit 2943bdf700112233445566778899aabbccddeef

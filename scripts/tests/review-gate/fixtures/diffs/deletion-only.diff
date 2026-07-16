@@ -1,0 +1,17 @@
+diff --git a/skills/finish-branch/util.py b/skills/finish-branch/util.py
+index 8888888..9999999 100644
+--- a/skills/finish-branch/util.py
++++ b/skills/finish-branch/util.py
+@@ -30,10 +30,5 @@ def normalize(path):
+     return path.strip("/")
+
+
+-def legacy_normalize(path):
+-    """Deprecated: use normalize() instead."""
+-    parts = path.split("/")
+-    parts = [p for p in parts if p]
+-    return "/".join(parts)
+-
+-
+ def public_api():
+     return ["normalize"]

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>@LABEL_PREFIX@.scheduled-jobs.@JOB_NAME@</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>@JOB_DIR@/run.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>@HOUR@</integer>
+    <key>Minute</key><integer>@MINUTE@</integer>
+  </dict>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- launchd does not inherit the login shell PATH; the historical
+         sub-second no-op runs are consistent with `claude` not resolving.
+         Scaffold writes the ABSOLUTE resolved paths at creation time. -->
+    <key>PATH</key><string>@RESOLVED_PATH@</string>
+    <key>HOME</key><string>@HOME@</string>
+  </dict>
+  <key>StandardOutPath</key><string>@JOB_DIR@/logs/launchd.out.log</string>
+  <key>StandardErrorPath</key><string>@JOB_DIR@/logs/launchd.err.log</string>
+</dict>
+</plist>

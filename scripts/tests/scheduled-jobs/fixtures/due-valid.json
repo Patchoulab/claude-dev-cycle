@@ -1,0 +1,14 @@
+[
+  {
+    "name": "widget-a",
+    "state": {
+      "kind": "example",
+      "status": "OUTDATED",
+      "last_verified": "2026-05-01",
+      "source_url": "https://example.com/widget-a",
+      "method": "download latest release",
+      "consecutive_failures": 0,
+      "notes": ""
+    }
+  }
+]

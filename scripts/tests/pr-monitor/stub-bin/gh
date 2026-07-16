@@ -1,0 +1,60 @@
+#!/bin/bash
+# Records argv; replies are keyed by ENDPOINT SIGNATURE (argv pattern), not
+# call order — the poller now makes five gh calls per cycle (pr view, three
+# `gh api` REST endpoints, plus reviews/check-runs), so indexing replies by
+# "the Nth gh call ever" is meaningless and silently breaks whichever
+# endpoint the test isn't explicitly targeting. Each signature gets its own
+# fixture file under STUB_GH_DIR, with a sensible empty/default reply per
+# endpoint when no fixture is supplied.
+#
+# Signatures (checked in order, first match wins):
+#   pr view ...                          -> pr-view.json
+#   api .../issues/<n>/comments ...      -> issue-comments.json
+#   api .../pulls/<n>/comments ...       -> review-comments.json   (INLINE)
+#   api .../pulls/<n>/reviews ...        -> reviews.json
+#   api .../commits/<sha>/check-runs ... -> check-runs.json
+#   api rate_limit ...                   -> rate-limit.json
+#   (anything else)                      -> unknown.json / '{}'
+set -u
+REC="${STUB_GH_RECORD:-/tmp/stub-gh-record}"
+echo "ARGS: $*" >> "$REC"
+
+ARGV=" $* "
+key=""
+default=""
+case "$ARGV" in
+  *" pr view "*)
+    key="pr-view"
+    default='{"state":"OPEN","isDraft":false,"headRefOid":"abc123","mergeable":"MERGEABLE","reviewDecision":"","url":"https://github.com/o/r/pull/1"}'
+    ;;
+  *" api "*"issues/"*"/comments"*)
+    key="issue-comments"
+    default='[]'
+    ;;
+  *" api "*"pulls/"*"/comments"*)
+    key="review-comments"
+    default='[]'
+    ;;
+  *" api "*"pulls/"*"/reviews"*)
+    key="reviews"
+    default='[]'
+    ;;
+  *" api "*"check-runs"*)
+    key="check-runs"
+    default='[]'
+    ;;
+  *" api rate_limit"*|*" api "*"rate_limit"*)
+    key="rate-limit"
+    default='{"resources":{"core":{"remaining":1000}}}'
+    ;;
+  *)
+    key="unknown"
+    default='{}'
+    ;;
+esac
+
+if [ -n "${STUB_GH_DIR:-}" ] && [ -f "$STUB_GH_DIR/$key.json" ]; then
+  cat "$STUB_GH_DIR/$key.json"
+else
+  printf '%s\n' "$default"
+fi

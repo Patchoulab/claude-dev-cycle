@@ -1,0 +1,19 @@
+diff --git a/tests/test_policy.py b/tests/test_policy.py
+new file mode 100644
+index 0000000..3333333
+--- /dev/null
++++ b/tests/test_policy.py
+@@ -0,0 +1,12 @@
++import policy
++
++
++def test_allows_known_user():
++    assert policy.check("alice") is True
++
++
++def test_denies_unknown_user():
++    assert policy.check("mallory") is False
++
++
++def test_returns_bool():
++    assert isinstance(policy.check("bob"), bool)

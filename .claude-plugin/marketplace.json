@@ -1,0 +1,11 @@
+{
+  "name": "dev-cycle-plugins",
+  "owner": { "name": "Patchoulab" },
+  "plugins": [
+    {
+      "name": "dev-cycle",
+      "source": "./",
+      "description": "Development-cycle workflow skills distilled from real Claude Code session history"
+    }
+  ]
+}

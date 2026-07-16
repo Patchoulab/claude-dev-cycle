@@ -1,0 +1,10 @@
+{
+  "name": "dev-cycle",
+  "version": "1.0.0",
+  "description": "Development-cycle workflow skills distilled from real Claude Code session history: session handoff, branch finishing, PR monitoring, hardened review gates, project planning, scheduled jobs, whitepaper sites, demo prep, and worktree-per-session lifecycle",
+  "author": {
+    "name": "Patchoulab"
+  },
+  "license": "MIT",
+  "keywords": ["workflow", "automation", "git", "submodules", "worktree", "review", "session-handoff", "planning", "documentation", "demo-prep", "scheduled-jobs"]
+}

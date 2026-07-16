@@ -1,0 +1,10 @@
+diff --git a/skills/finish-branch/policy.py b/skills/finish-branch/policy.py
+index 6666666..7777777 100644
+--- a/skills/finish-branch/policy.py
++++ b/skills/finish-branch/policy.py
+@@ -14,7 +14,7 @@ def check(user):
+     Returns True if the user is present in the allowlist file.
+     """
+-    # look up the user in the local allowlist cache
++    # look up the user in the shared allowlist cache (refreshed hourly)
+     return user in _load_allowlist()

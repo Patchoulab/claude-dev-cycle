@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git diff:*)",
+      "Bash(git blame:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git cat-file:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git -C <SUB_ABS> log:*)",
+      "Bash(git -C <SUB_ABS> show:*)",
+      "Bash(git -C <SUB_ABS> diff:*)",
+      "Bash(git -C <SUB_ABS> ls-tree:*)",
+      "Bash(git -C <SUB_ABS> ls-files:*)",
+      "Bash(git -C <SUB_ABS> cat-file:*)",
+      "Bash(git -C <SUB_ABS> rev-parse:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)",
+      "Bash(jq:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:osv.dev)",
+      "WebFetch(domain:nvd.nist.gov)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:security.snyk.io)",
+      "WebFetch(domain:pypi.org)"
+    ]
+  }
+}

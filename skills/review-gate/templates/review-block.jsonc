@@ -1,0 +1,15 @@
+{
+  "review": {
+    "enabled": true,
+    "model": "sonnet",              // reviewer model; verification pass uses the same
+    "maxTurns": 40,
+    "timeoutSeconds": 900,
+    "dedupTtlSeconds": 3600,
+    "maxDiffBytes": 204800,          // beyond this: per-file/stat fallback (the 407.8KB lockfile case)
+    "monorepoHint": "",             // e.g. "All site sources live under presentation-site/"
+    "advisoryDomains": ["github.com", "osv.dev", "nvd.nist.gov", "www.npmjs.com", "security.snyk.io", "pypi.org"],
+    "extraSkipGlobs": [],            // additional docs-grade paths, e.g. "content/**"
+    "neverSkipGlobs": [],            // force-review paths, e.g. "platform-services/**"
+    "verification": { "required": true, "maxRetries": 1 }
+  }
+}

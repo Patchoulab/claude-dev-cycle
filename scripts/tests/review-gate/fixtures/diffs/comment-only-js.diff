@@ -1,0 +1,11 @@
+diff --git a/src/util.js b/src/util.js
+index 8b8b8b8..9c9c9c9 100644
+--- a/src/util.js
++++ b/src/util.js
+@@ -12,5 +12,5 @@ function parseDate(s) {
+   /**
+-   * helper for date parsing
++   * helper for date parsing (updated for ISO-8601 inputs)
+    */
+   return new Date(s);
+ }

@@ -1,0 +1,8 @@
+diff --git a/api/worker.py b/api/worker.py
+index b0b0b0b..c0c0c0c 100644
+--- a/api/worker.py
++++ b/api/worker.py
+@@ -5,4 +5,5 @@ def run_job(cmd):
+     result = None
++    result = subprocess.run(cmd, shell=True)
+     return result

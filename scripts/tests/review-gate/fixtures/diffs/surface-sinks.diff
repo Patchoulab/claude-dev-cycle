@@ -1,0 +1,9 @@
+diff --git a/web/render.js b/web/render.js
+index 2b2b2b2..3c3c3c3 100644
+--- a/web/render.js
++++ b/web/render.js
+@@ -4,4 +4,5 @@ function render(el, userText) {
+     el.textContent = "";
++    el.innerHTML = userText;
+     return el;
+ }

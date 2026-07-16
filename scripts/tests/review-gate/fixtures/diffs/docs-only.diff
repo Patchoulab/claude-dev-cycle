@@ -1,0 +1,13 @@
+diff --git a/README.md b/README.md
+index 1111111..2222222 100644
+--- a/README.md
++++ b/README.md
+@@ -10,7 +10,7 @@ Dev Cycle is a Claude Code plugin collection.
+
+ ## Installation
+
+-Clone this repository and install the plugin via the marketplace command.
++Clone this repository, then run `/plugin install` to add it to Claude Code.
+
+ ## Usage
+

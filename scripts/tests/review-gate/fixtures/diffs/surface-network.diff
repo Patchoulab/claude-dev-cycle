@@ -1,0 +1,8 @@
+diff --git a/api/client.py b/api/client.py
+index d0d0d0d..e0e0e0e 100644
+--- a/api/client.py
++++ b/api/client.py
+@@ -3,4 +3,5 @@ def fetch_data(url):
+     data = None
++    data = requests.get(url).json()
+     return data

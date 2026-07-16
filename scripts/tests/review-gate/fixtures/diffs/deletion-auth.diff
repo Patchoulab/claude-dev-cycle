@@ -1,0 +1,9 @@
+diff --git a/api/auth_check.py b/api/auth_check.py
+index 7070707..8080808 100644
+--- a/api/auth_check.py
++++ b/api/auth_check.py
+@@ -20,9 +20,6 @@ def handle(request):
+-    if not verify_token(request):
+-        raise Unauthorized()
+-
+     return dispatch(request)

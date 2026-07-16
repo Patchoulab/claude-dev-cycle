@@ -1,0 +1,11 @@
+diff --git a/package-lock.json b/package-lock.json
+index 4444444..5555555 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -120,8 +120,8 @@
+     "node_modules/lodash": {
+-      "version": "4.17.20",
+-      "integrity": "sha512-abcdefghijklmnopqrstuvwxyz0123456789"
++      "version": "4.17.21",
++      "integrity": "sha512-zyxwvutsrqponmlkjihgfedcba9876543210"
+     },

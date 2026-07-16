@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install jq (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Install pytest
+        run: python3 -m pip install --quiet pytest
+
+      - name: Run test suite
+        run: bash scripts/tests/run_all.sh
+
+  scrub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Personal-literal sweep (allowlist Patchoulab)
+        run: |
+          if grep -rniE 'pchouinard|hopchouinard|chouinpa|patchou|CDPQ|Home\.servers|agent-ops|Cognitive-Backlog|RecapFlow|/Volumes/|NVMe|10\.1\.|Patchou-Skill-forge' . \
+               --exclude-dir=.git --exclude=validate_plugin.sh --exclude=ci.yml \
+               | grep -viE 'Patchoulab'; then
+            echo "::error::personal literal found"; exit 1
+          fi
+          echo "personal-literal sweep clean"
+
+      - name: Old-vocabulary sweep
+        run: |
+          if grep -rniE '\bforge\b|land-slice|gitlink dance|skill-smith|cron-forge|plan-forge|session-relay|pr-babysit|session-lifecycle|review-harness|homelab|forge\.json|\.git/forge' . \
+               --exclude-dir=.git --exclude=validate_plugin.sh --exclude=ci.yml; then
+            echo "::error::old-vocabulary token found"; exit 1
+          fi
+          echo "old-vocabulary sweep clean"

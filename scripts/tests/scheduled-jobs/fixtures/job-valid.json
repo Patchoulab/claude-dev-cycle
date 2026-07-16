@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "name": "example-job",
+  "description": "Verify example items against their upstream source.",
+  "created": "2026-07-01",
+  "schedule": {
+    "backend": "launchd",
+    "calendar": { "Hour": 9, "Minute": 0 },
+    "period_hours": 24,
+    "unit_path": "~/Library/LaunchAgents/com.example.scheduled-jobs.example-job.plist"
+  },
+  "ttl_days": 30,
+  "max_runtime_s": 1800,
+  "writes_allowed": ["~/example-job/output.txt"],
+  "inputs": ["~/example-job/input.txt"],
+  "expected_artifacts": [
+    "reports/report-{RUN_DATE}.md",
+    "reports/summary-{RUN_DATE}.json"
+  ],
+  "health": { "min_duration_s": 5, "min_turns": 3, "max_gap_factor": 2.0 },
+  "notify": {
+    "on": ["material_change", "failure", "lint_fail", "launch_fail"],
+    "channels": ["macos"]
+  },
+  "claude": { "model": "sonnet", "extra_args": [] }
+}

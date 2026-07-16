@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "job": "example-job",
+  "updated": "2026-07-01T09:00:00Z",
+  "items": {
+    "widget-a": {
+      "kind": "example",
+      "status": "OUTDATED",
+      "last_verified": "2026-05-01",
+      "source_url": "https://example.com/widget-a",
+      "method": "download latest release",
+      "consecutive_failures": 0,
+      "notes": ""
+    },
+    "widget-b": {
+      "kind": "example",
+      "status": "OK",
+      "last_verified": "2026-07-01",
+      "source_url": "https://example.com/widget-b",
+      "method": "n/a",
+      "consecutive_failures": 0,
+      "notes": ""
+    }
+  },
+  "ignored": {},
+  "seen": {}
+}

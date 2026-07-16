@@ -1,0 +1,8 @@
+diff --git a/api/handler.py b/api/handler.py
+index f0f0f0f..1a1a1a1 100644
+--- a/api/handler.py
++++ b/api/handler.py
+@@ -2,4 +2,5 @@ def handle(req):
+     payload = None
++    payload = pickle.loads(req.body)
+     return payload
