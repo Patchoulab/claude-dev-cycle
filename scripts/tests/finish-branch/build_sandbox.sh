@@ -2,6 +2,14 @@
 # Usage: build_sandbox.sh <target-dir>
 # Creates: <dir>/remotes/{parent,sub}.git (bare), <dir>/work/parent (clone with submodule submod)
 set -eu
+
+# Allow file:// submodule fetches. A one-shot `-c protocol.file.allow=always`
+# does not propagate to the submodule subprocess a recursive clone spawns, so
+# set it via GIT_CONFIG_* env exports, which every child git process inherits.
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=protocol.file.allow
+export GIT_CONFIG_VALUE_0=always
+
 T="$1"
 mkdir -p "$T/remotes" "$T/work"
 git init -q --bare "$T/remotes/parent.git"

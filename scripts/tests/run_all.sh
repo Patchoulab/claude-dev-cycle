@@ -1,6 +1,16 @@
 #!/bin/bash
 set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Test sandboxes build submodules over file:// remotes. Modern git blocks the
+# file protocol by default, and a one-shot `-c protocol.file.allow=always` does
+# not propagate to the submodule subprocess a recursive clone spawns. Setting it
+# via GIT_CONFIG_* env exports reaches every child git process. Test-only: real
+# repos use ssh/https remotes, so this changes nothing about shipped behavior.
+export GIT_CONFIG_COUNT=1
+export GIT_CONFIG_KEY_0=protocol.file.allow
+export GIT_CONFIG_VALUE_0=always
+
 fail=0
 run() { echo "== $1"; bash "$DIR/$1" || fail=1; }
 run validate_plugin.sh
