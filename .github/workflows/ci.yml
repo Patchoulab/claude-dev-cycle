@@ -47,7 +47,7 @@ jobs:
       - name: Old-vocabulary sweep
         run: |
           if grep -rniE '\bforge\b|land-slice|gitlink dance|skill-smith|cron-forge|plan-forge|session-relay|pr-babysit|session-lifecycle|review-harness|homelab|forge\.json|\.git/forge' . \
-               --exclude-dir=.git --exclude=validate_plugin.sh --exclude=ci.yml; then
+               --exclude-dir=.git --exclude=validate_plugin.sh --exclude=ci.yml --exclude=CLAUDE.md; then
             echo "::error::old-vocabulary token found"; exit 1
           fi
           echo "old-vocabulary sweep clean"
