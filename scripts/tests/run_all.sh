@@ -3,13 +3,21 @@ set -u
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Test sandboxes build submodules over file:// remotes. Modern git blocks the
-# file protocol by default, and a one-shot `-c protocol.file.allow=always` does
-# not propagate to the submodule subprocess a recursive clone spawns. Setting it
-# via GIT_CONFIG_* env exports reaches every child git process. Test-only: real
-# repos use ssh/https remotes, so this changes nothing about shipped behavior.
-export GIT_CONFIG_COUNT=1
-export GIT_CONFIG_KEY_0=protocol.file.allow
-export GIT_CONFIG_VALUE_0=always
+# file protocol by default, and neither a one-shot `-c protocol.file.allow` nor
+# GIT_CONFIG_* env vars reliably reach the submodule subprocess a recursive
+# clone spawns on every git build (observed failing on GitHub CI runners). Point
+# git at a controlled global/system config on disk instead: every git process,
+# including submodule children, reads it. GIT_CONFIG_SYSTEM=/dev/null also drops
+# any runner-injected system config. Test-only: real repos use ssh/https remotes.
+DC_TEST_GITCONFIG="$(mktemp)"
+git config -f "$DC_TEST_GITCONFIG" protocol.file.allow always
+git config -f "$DC_TEST_GITCONFIG" safe.directory '*'
+git config -f "$DC_TEST_GITCONFIG" user.name "dev-cycle-test"
+git config -f "$DC_TEST_GITCONFIG" user.email "test@example.com"
+git config -f "$DC_TEST_GITCONFIG" init.defaultBranch main
+export GIT_CONFIG_GLOBAL="$DC_TEST_GITCONFIG"
+export GIT_CONFIG_SYSTEM=/dev/null
+trap 'rm -f "$DC_TEST_GITCONFIG"' EXIT
 
 fail=0
 run() { echo "== $1"; bash "$DIR/$1" || fail=1; }

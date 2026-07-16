@@ -3,12 +3,21 @@
 # Creates: <dir>/remotes/{parent,sub}.git (bare), <dir>/work/parent (clone with submodule submod)
 set -eu
 
-# Allow file:// submodule fetches. A one-shot `-c protocol.file.allow=always`
-# does not propagate to the submodule subprocess a recursive clone spawns, so
-# set it via GIT_CONFIG_* env exports, which every child git process inherits.
-export GIT_CONFIG_COUNT=1
-export GIT_CONFIG_KEY_0=protocol.file.allow
-export GIT_CONFIG_VALUE_0=always
+# Allow file:// submodule fetches. Neither `-c protocol.file.allow` nor
+# GIT_CONFIG_* env vars reliably reach the submodule subprocess a recursive
+# clone spawns, so point git at a controlled global config on disk (every git
+# process reads it). run_all.sh usually sets this already; honor it if so.
+if ! git config --global protocol.file.allow 2>/dev/null | grep -q always; then
+  _DC_BS_GITCONFIG="$(mktemp)"
+  git config -f "$_DC_BS_GITCONFIG" protocol.file.allow always
+  git config -f "$_DC_BS_GITCONFIG" safe.directory '*'
+  git config -f "$_DC_BS_GITCONFIG" user.name "dev-cycle-test"
+  git config -f "$_DC_BS_GITCONFIG" user.email "test@example.com"
+  git config -f "$_DC_BS_GITCONFIG" init.defaultBranch main
+  export GIT_CONFIG_GLOBAL="$_DC_BS_GITCONFIG"
+  export GIT_CONFIG_SYSTEM=/dev/null
+  trap 'rm -f "$_DC_BS_GITCONFIG"' EXIT
+fi
 
 T="$1"
 mkdir -p "$T/remotes" "$T/work"
