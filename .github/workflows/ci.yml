@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+# The test and scrub jobs only need to read repository contents.
+permissions:
+  contents: read
+
 jobs:
   test:
     strategy:
